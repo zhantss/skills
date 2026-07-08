@@ -67,14 +67,44 @@ Then ask yourself the **Critical Question**:
 
 **If ANY fact conflicts with your assumption → you were about to hallucinate. Discard your assumption. Use ONLY wiki facts.**
 
-### Step 5: OUTPUT — With evidence
+### Step 5: OUTPUT — Conclusion-first (BLUF)
 
-Produce your answer. Every factual claim about a game entity must be traceable to the wiki page you fetched. Include a brief citation at the end:
+**The first thing the user reads MUST be the direct answer.** Never bury the conclusion behind analysis.
+
+Output structure:
 
 ```
+## 结论：[一句话直接回答]
+
+（1-2 句关键理由，让用户无需滚动即可获取答案）
+
 ---
-来源: [wiki page URL]
+
+### 详细说明
+[仅在用户需要时展开：步骤、生蛋链、对照表等]
+
+来源: [wiki page URLs]
 ```
+
+**Rules:**
+
+1. **BLUF (Bottom Line Up Front)** — "可以/不可以"、"Yes/No" 必须在最前面
+2. **Details after `---`** — 用户看到结论即可停止，需要细节再往下看
+3. **Never bury the answer** — 如果结论是"不可行"，它必须是第一行，不能埋在分析中间
+
+**Anti-pattern:**
+```
+✅ A 可行  →  ✅ B 可行  →  🔴 C 不可行（结论被埋没）
+```
+
+**Correct:**
+```
+结论：C 不可行。A、B 单独可行，详见下方。
+---
+### A ...### B ...### C 替代方案
+```
+
+Every factual claim must be traceable to the wiki page you fetched. Cite at the end.
 
 ## Evidence Rules
 
