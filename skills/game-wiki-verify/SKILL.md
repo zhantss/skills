@@ -67,42 +67,36 @@ Then ask yourself the **Critical Question**:
 
 **If ANY fact conflicts with your assumption → you were about to hallucinate. Discard your assumption. Use ONLY wiki facts.**
 
-### Step 5: OUTPUT — Conclusion-first (BLUF)
+### Step 5: OUTPUT — Conclusion-first, then details
 
-**The first thing the user reads MUST be the direct answer.** Never bury the conclusion behind analysis.
+**Put the direct answer where the user sees it immediately.** Long analyses with the conclusion at the end cause users to misunderstand or miss the answer entirely.
 
-Output structure:
+**Required output structure:**
 
 ```
-## 结论：[一句话直接回答]
-
-（1-2 句关键理由，让用户无需滚动即可获取答案）
-
+[直接回答用户的问题，1-3 句话]
+[关键理由或限制条件]
 ---
-
 ### 详细说明
-[仅在用户需要时展开：步骤、生蛋链、对照表等]
-
-来源: [wiki page URLs]
+[仅在用户需要时才提供：具体步骤、数据、对比表等]
+来源: [wiki URLs]
 ```
 
-**Rules:**
+**This structure prevents two failure modes:**
 
-1. **BLUF (Bottom Line Up Front)** — "可以/不可以"、"Yes/No" 必须在最前面
-2. **Details after `---`** — 用户看到结论即可停止，需要细节再往下看
-3. **Never bury the answer** — 如果结论是"不可行"，它必须是第一行，不能埋在分析中间
+| Failure | Example | Fix |
+|---------|---------|-----|
+| **Conclusion buried** | Listing 5 options then revealing at the end that the user's request is impossible | State impossibility FIRST, then explain why |
+| **Answer lost in detail** | User asks "how to get X" and must scroll past paragraphs before finding the method | Answer in first 3 lines; details after `---` |
 
-**Anti-pattern:**
-```
-✅ A 可行  →  ✅ B 可行  →  🔴 C 不可行（结论被埋没）
-```
+**Key rules:**
 
-**Correct:**
-```
-结论：C 不可行。A、B 单独可行，详见下方。
----
-### A ...### B ...### C 替代方案
-```
+- **User asks "can I..." / "is it possible..."** → Start with "Yes/No" immediately
+- **User asks "how to..."** → Start with the method name/location, not the journey
+- **User asks "should I..." / "is X worth it"** → Start with the verdict, then reasoning
+- **Anything after `---` is optional** — the user should have their answer before the divider
+
+Every factual claim must be traceable to the wiki page you fetched.
 
 Every factual claim must be traceable to the wiki page you fetched. Cite at the end.
 
