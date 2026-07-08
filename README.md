@@ -1,6 +1,6 @@
-# AI Agent Skills Collection
+# Skills Collection
 
-A curated collection of skills for AI coding agents (Claude Code, OpenCode, Codex CLI, Cursor, and any [Agent Skills](https://agentskills.io)-compatible runtime).
+AI coding agent skills — compatible with Claude Code, OpenCode, Codex CLI, and any [Agent Skills](https://agentskills.io) runtime.
 
 ## Skills
 
@@ -10,61 +10,31 @@ A curated collection of skills for AI coding agents (Claude Code, OpenCode, Code
 
 ## Installation
 
-### Quick Install (Windows PowerShell)
-
-```powershell
-# Clone and install all skills
-git clone https://github.com/YOUR_USERNAME/skills.git D:\Space\skills
-cd D:\Space\skills
-.\install.ps1
-```
-
-### Quick Install (macOS / Linux)
+Clone and symlink individual skills to your client's skills directory:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/skills.git ~/skills
-cd ~/skills
-./install.sh
+git clone https://github.com/YOUR_USERNAME/skills.git
 ```
-
-### Install a Single Skill
-
-```bash
-# Install only game-wiki-verify
-./install.sh game-wiki-verify
-```
-
-### Manual Install
-
-Copy or symlink individual skills to your client's skills directory:
 
 | Client | Skills Directory |
 |--------|-----------------|
 | Claude Code | `~/.claude/skills/` |
-| OpenCode | `~/.claude/skills/` or `~/.agents/skills/` |
+| OpenCode | `~/.claude/skills/` |
 | Codex CLI | `~/.agents/skills/` |
 
 ```bash
-# Example: manual install for Claude Code
+# Example: install game-wiki-verify for Claude Code / OpenCode
 ln -s $(pwd)/skills/game-wiki-verify ~/.claude/skills/game-wiki-verify
 ```
 
+Start a new session for skills to take effect.
+
 ## Adding a New Skill
 
-1. Create `skills/<skill-name>/SKILL.md` with proper YAML frontmatter
-2. Add any reference files in `skills/<skill-name>/references/`
+1. Create `skills/<name>/SKILL.md` with YAML frontmatter
+2. Add reference files in `skills/<name>/references/` if needed
 3. Optionally add a skill-level `README.md`
 4. Update the skills table above
-
-```yaml
-# SKILL.md frontmatter template
----
-name: my-skill
-version: 1.0.0
-description: "What it does and when to trigger"
-user-invocable: true
----
-```
 
 ## License
 
