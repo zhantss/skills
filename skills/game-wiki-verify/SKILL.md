@@ -2,7 +2,7 @@
 name: game-wiki-verify
 version: 1.0.0
 author: zhant
-description: "IRON LAW: NO GAME TERMINOLOGY CLAIMS WITHOUT FRESH WIKI VERIFICATION. Before answering ANY question about game creatures, items, mechanics, skills, buildings, DLCs, or characters — in ANY game — you MUST fetch and read the game's official wiki page for each entity. Training data recall is NOT evidence. Triggers on: any game name mentioned in user message; any Chinese game question (怎么养 如何用 是什么 怎么造 攻略 推荐 对比 价值 区别 吃什么 产什么 属性 掉落); any English game question (how to, what is, should I use, guide, strategy, worth it, best way to). If you are <90% confident about any game term, stop and verify. Applies to ALL games: 缺氧, 饥荒, 星露谷, 泰拉瑞亚, Minecraft, Factorio, RimWorld, Stardew Valley, Don't Starve, Terraria, etc. Game-specific wiki references are in references/ directory — read the relevant one when the game is identified."
+description: "IRON LAW: NO GAME TERMINOLOGY CLAIMS WITHOUT FRESH WIKI VERIFICATION. Before answering ANY question about game creatures, items, mechanics, skills, buildings, DLCs, characters, or MODS — in ANY game — you MUST fetch and read the game's official wiki page for each entity. For mod-related questions, prioritize Steam Workshop and Nexus Mods; always verify game/mod version (default to latest), and include version numbers in answers. Training data recall is NOT evidence. Triggers on: any game name mentioned in user message; any Chinese game question (怎么养 如何用 是什么 怎么造 攻略 推荐 对比 价值 区别 吃什么 产什么 属性 掉落 mod 模组 创意工坊); any English game question (how to, what is, should I use, guide, strategy, worth it, best way, mod). If you are <90% confident about any game term, stop and verify. Applies to ALL games: 缺氧, 饥荒, 星露谷, 泰拉瑞亚, Minecraft, Factorio, RimWorld, Stardew Valley, Don't Starve, Terraria, etc. Game-specific wiki references are in references/ directory — read the relevant one when the game is identified."
 user-invocable: true
 ---
 
@@ -108,6 +108,7 @@ Every factual claim must be traceable to the wiki page you fetched. Cite at the 
 | WebFetch of community wiki page (if no official wiki) | Pattern matching ("矿" in name → must be Hatch) |
 | Official game patch notes | Inference from analogy ("creature X works like Y") |
 | Game's own database/translation table | Forum posts without wiki confirmation |
+| Steam Workshop / Nexus Mods page (mod queries only) | Mod aggregator/curation sites without primary source |
 
 **If you cannot find the wiki page for an entity, state: "I could not verify [entity] against the wiki. Here's what I found in search results, but please confirm."** Never present unverified information as fact.
 
@@ -119,7 +120,51 @@ When multiple sources exist, prefer in this order:
 3. Official patch notes / developer updates
 4. Game's translation table (译名表)
 
+**For mod-related queries**, the source hierarchy is:
+1. Steam Workshop (steamcommunity.com/workshop) — for the mod's official page, description, and changelog
+2. Nexus Mods (nexusmods.com) — for mod details, requirements, and version compatibility
+3. Game's official wiki — for mod documentation wikis (e.g., official mod wiki pages)
+4. Mod developer's own documentation (GitHub, Discord, etc.)
+
 If sources conflict, prefer the higher-tier source and note the discrepancy.
+
+## Mod-Related Queries
+
+When the user's question involves mods, modded content, or game modifications, apply these additional rules:
+
+### Search Priority
+
+Always search mod platforms **before** general game wikis:
+- **Steam Workshop** — Search `site:steamcommunity.com/workshop [game name] [mod name]` or browse the game's workshop directly
+- **Nexus Mods** — Search `site:nexusmods.com [game name] [mod name]`
+
+General game wikis often have outdated or incomplete mod information. Mod platforms are authoritative for: mod descriptions, features, requirements, compatibility, version history, and user-reported issues.
+
+### Version Verification (MANDATORY)
+
+Game mods are version-sensitive. A mod working on version X may break on version Y. Always:
+
+1. **Check the game version the mod targets** — Look for version requirements on the mod page (Steam Workshop "Required items" section, Nexus Mods "Requirements" tab)
+2. **Default to latest version** — When the user does NOT specify a game version, assume the latest stable release of the game and find the mod version that matches
+3. **State the version explicitly** — If you can determine the game version the mod targets, include it in your answer
+
+### Output Rules for Mod Queries
+
+When answering mod-related questions, the output MUST include:
+
+```
+[直接回答]
+---
+### 版本信息
+- 游戏版本: [具体的游戏版本号，如 1.5.6]
+- Mod 版本: [mod 版本号]
+- 兼容性: [是否兼容当前最新版本 / 已知冲突]
+### 详细说明
+[mod 功能、使用方法等]
+来源: [Steam Workshop / Nexus Mods URL]
+```
+
+If the version **cannot** be determined: state "无法确定具体版本，以下信息基于最新可用数据。" and note that the user should verify against their own game version.
 
 ## When to Say "I Don't Know"
 
