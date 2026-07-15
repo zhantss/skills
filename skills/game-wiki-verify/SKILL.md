@@ -184,6 +184,67 @@ If after searching and fetching wiki pages you still cannot confirm the entity:
 - **NEVER** skip the verification gate because "I know this game"
 - **NEVER** present options/strategies without verifying entity identities first
 
+## Farming/Ranching Calculation Protocol (CRITICAL)
+
+When users ask "how many X to feed N entities" (duplicants, villagers, animals, etc.), NEVER compute from memory. Game mechanics — reproduction formulas, growth rates, calorie values, food chain multipliers — change across versions. **You MUST chain wiki lookups to assemble the calculation from current data.**
+
+### Two-Phase Fetch Strategy
+
+**Phase 1 — Context Pages (fetch FIRST, in parallel):**
+These provide the calculation framework. The exact pages depend on the game, but the pattern is:
+
+1. **Difficulty/Settings page** — to get consumption rates, difficulty modifiers
+2. **General mechanics page** — reproduction/growth formulas, happiness/condition effects
+3. **Production station page(s)** — processing times, ingredient-to-output ratios
+
+**Phase 2 — Entity Pages (fetch AFTER phase 1, in parallel):**
+Armed with the framework, fetch each specific entity's page to extract numbers (yield, lifecycle, modifiers, products).
+
+> **For game-specific fetch chains and known pitfalls**, check the game's reference file in `references/`. Each reference file documents: which pages to fetch, in what order, what data to extract, and which calculation errors the AI commonly makes for that game.
+
+### Calculation Rules (Game-Agnostic)
+
+- **Modifier stacking**: Always enumerate every modifier from wiki data. NEVER assume values — each entity/game has unique numbers.
+- **Formula freshness**: Always use the CURRENT formula from the general mechanics page. Formulas change between versions — training data is stale.
+- **Production chains**: Present raw → intermediate → finished, showing output multiplication at each step and how it reduces required input scale.
+- **Worker/labor count**: Consider processing time per unit × units needed ÷ available work time per worker per cycle/day.
+- **Availability gating**: Always confirm which zones/biomes/regions are accessible to the player before recommending entities. If the entity is from a locked/unreached area, state it clearly.
+
+### Anti-Patterns (NEVER)
+
+- **NEVER** recall yield values, reproduction rates, or growth cycles from memory
+- **NEVER** assume "it works like other entities" — each has unique modifiers
+- **NEVER** skip the general mechanics page — per-entity pages often lack formulas
+- **NEVER** present calculations without explicitly listing each modifier source and its value
+- **NEVER** hardcode formulas from training data — always verify against current wiki
+
+## Output for Calculation Answers
+
+When presenting a multi-step calculation, use this structure:
+
+```
+[直接答案：需要 X 个]
+
+### 计算基准（来自 wiki）
+| 参数 | 数值 | 来源页面 |
+|------|------|---------|
+
+### 修正项明细（逐项列出）
+| 来源 | 数值 |
+|------|------|
+
+### 公式推算
+[公式代入过程]
+
+### 加工进阶（可选）
+[原材料 → 中间品 → 成品的对比表]
+
+### 人力需求（可选）
+[工作量和人数推算]
+
+来源: [所有引用的 wiki URLs]
+```
+
 ## Game-Specific References
 
 When a game is identified, read the corresponding reference file for wiki URLs and known pitfalls:
